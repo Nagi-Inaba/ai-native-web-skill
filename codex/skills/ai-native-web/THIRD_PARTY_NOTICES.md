@@ -19,6 +19,8 @@ Installed through npm; not vendored in this repository.
 
 System Google Chrome is used through `channel: "chrome"` and is not redistributed.
 
+The source repository uses js-yaml 4.3.2 (MIT) as a test-only dependency to validate the GitHub Actions workflow. It is not added to the installed skill's dependency list and its code is not vendored.
+
 ## Standards referenced
 
 `shared/skill/references/recipes.json` and the skill instructions are written for this project. They cite WCAG 2.2 success criterion numbers and link to W3C documents (WCAG 2.2, WAI-ARIA, ARIA in HTML, ARIA Authoring Practices Guide); no W3C specification text is copied. Those documents remain under their own W3C licenses.

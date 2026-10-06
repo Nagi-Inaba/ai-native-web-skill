@@ -24,7 +24,8 @@ jobs:
       - run: npm ci
       - name: Report Chrome availability
         shell: bash
-        run: node -e "require('playwright-core').chromium.launch({channel:'chrome'}).then(b=>{console.log('chrome: available');return b.close()},()=>console.log('chrome: unavailable, browser tests will skip'))"
+        run: |
+          node -e "require('playwright-core').chromium.launch({channel:'chrome'}).then(b=>{console.log('chrome: available');return b.close()},()=>console.log('chrome: unavailable, browser tests will skip'))"
       - run: npm test
       - name: Distribution copies are in sync
         shell: bash

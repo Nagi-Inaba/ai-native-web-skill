@@ -9,5 +9,8 @@
   "scripts": {
     "test": "node --test --test-reporter=spec \"tests/*.test.mjs\"",
     "sync": "node scripts/sync-distributions.mjs"
+  },
+  "devDependencies": {
+    "js-yaml": "4.3.2"
   }
 }

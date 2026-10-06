@@ -4,8 +4,15 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import yaml from "js-yaml";
 
 const workflow = fs.readFileSync(new URL("../.github/workflows/ci.yml", import.meta.url), "utf8");
+
+test("CI parses as YAML with a scalar Chrome availability command", () => {
+  const parsed = yaml.load(workflow);
+  const chrome = parsed.jobs.test.steps.find((step) => step.name === "Report Chrome availability");
+  assert.equal(typeof chrome.run, "string");
+});
 
 test("CI pins external actions to full commit SHAs with version comments", () => {
   const lines = workflow.split(/\r?\n/u).filter((line) => /^\s*- uses: actions\//u.test(line));
