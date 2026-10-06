@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Category menu</title>
+  <style>nav a { display: inline-block; min-width: 24px; min-height: 24px; }</style>
+</head>
+<body>
+  <header>
+    <nav aria-label="Product categories">
+      <button id="menu-button" type="button" aria-expanded="false" aria-controls="category-links">Categories</button>
+      <ul id="category-links" hidden>
+        <li><a href="/new">New arrivals</a></li>
+        <li><a href="/sale">Sale products</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main><h1>Find products</h1></main>
+  <script>
+    const button = document.querySelector("#menu-button");
+    const links = document.querySelector("#category-links");
+
+    function setOpen(open) {
+      button.setAttribute("aria-expanded", String(open));
+      links.hidden = !open;
+    }
+
+    button.addEventListener("click", () => setOpen(button.getAttribute("aria-expanded") !== "true"));
+    links.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        button.focus();
+      }
+    });
+  </script>
+</body>
+</html>

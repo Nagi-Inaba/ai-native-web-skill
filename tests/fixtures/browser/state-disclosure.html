@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Readable disclosure</title>
+<style>body { color: #111; background: white; } :focus-visible { outline: 3px solid blue; }</style></head>
+<body><main><h1>Readable disclosure</h1>
+<button id="disclosure" type="button" aria-controls="panel" aria-expanded="false">Details</button>
+<section id="panel" hidden><p>Panel content</p><a href="#next">Next step</a></section>
+<p role="status"></p>
+</main><script>
+document.querySelector('#disclosure').addEventListener('click', () => {
+  const panel = document.querySelector('#panel');
+  panel.hidden = !panel.hidden;
+  document.querySelector('#disclosure').setAttribute('aria-expanded', String(!panel.hidden));
+  document.querySelector('[role=status]').textContent = panel.hidden ? 'Closed' : 'Opened';
+});
+</script></body></html>

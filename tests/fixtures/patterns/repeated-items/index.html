@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product list</title>
+</head>
+<body>
+  <main>
+    <h1>Product list</h1>
+    <ul>
+      <li>
+        <article aria-labelledby="product-a-name">
+          <h2 id="product-a-name">Product A</h2>
+          <p>In stock</p>
+          <button type="button" aria-label="Edit: Product A" aria-pressed="false">Edit</button>
+        </article>
+      </li>
+      <li>
+        <article aria-labelledby="product-b-name">
+          <h2 id="product-b-name">Product B</h2>
+          <p>Only 2 left</p>
+          <button type="button" aria-label="Edit: Product B" aria-pressed="false">Edit</button>
+        </article>
+      </li>
+    </ul>
+    <p id="edit-status" role="status">Select a product to edit.</p>
+  </main>
+  <script>
+    const buttons = [...document.querySelectorAll('button[aria-label^="Edit: "]')];
+    const status = document.querySelector("#edit-status");
+
+    for (const button of buttons) {
+      button.addEventListener("click", () => {
+        for (const candidate of buttons) candidate.setAttribute("aria-pressed", String(candidate === button));
+        const name = button.getAttribute("aria-label").replace("Edit: ", "");
+        status.textContent = `Editing ${name}.`;
+      });
+    }
+  </script>
+</body>
+</html>

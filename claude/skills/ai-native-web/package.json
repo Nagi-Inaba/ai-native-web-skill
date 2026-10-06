@@ -1,0 +1,22 @@
+{
+  "name": "ai-native-web",
+  "version": "0.1.0",
+  "private": true,
+  "files": ["SKILL.md", "scripts/", "references/recipes.json", "references/workflow.md", "references/patterns/", "agents/", "LICENSE", "THIRD_PARTY_NOTICES.md"],
+  "type": "module",
+  "license": "MIT",
+  "description": "Build and improve websites whose meaning and operations are exposed to people, assistive technology, and AI agents.",
+  "bin": { "ai-native-web": "./scripts/cli.mjs" },
+  "engines": { "node": ">=20.19" },
+  "dependencies": {
+    "@html-eslint/eslint-plugin": "0.66.1",
+    "@html-eslint/parser": "0.66.1",
+    "@typescript-eslint/parser": "8.71.0",
+    "axe-core": "4.13.0",
+    "eslint": "9.39.5",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "playwright-core": "1.63.0",
+    "stylelint": "17.15.0",
+    "typescript": "5.9.3"
+  }
+}

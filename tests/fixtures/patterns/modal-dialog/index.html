@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shipping address</title>
+</head>
+<body>
+  <main>
+    <h1>Order</h1>
+    <button id="open-dialog" type="button">Check shipping address</button>
+    <dialog id="address-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+      <h2 id="dialog-title" tabindex="-1">Confirm shipping address</h2>
+      <p id="dialog-description">Your order will be delivered to 1-1 Chiyoda, Chiyoda-ku, Tokyo.</p>
+      <form method="dialog">
+        <button value="cancel">Back</button>
+        <button value="confirm">Confirm</button>
+      </form>
+    </dialog>
+  </main>
+  <script>
+    const opener = document.querySelector("#open-dialog");
+    const dialog = document.querySelector("#address-dialog");
+    const title = document.querySelector("#dialog-title");
+
+    opener.addEventListener("click", () => {
+      dialog.showModal();
+      title.focus();
+    });
+    dialog.addEventListener("close", () => opener.focus());
+  </script>
+</body>
+</html>

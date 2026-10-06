@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Product information</title>
+</head>
+<body>
+  <main>
+    <h1>Product information</h1>
+    <div role="tablist" aria-label="Product information">
+      <button id="tab-overview" type="button" role="tab" aria-selected="true" aria-controls="panel-overview" tabindex="0">Overview</button>
+      <button id="tab-specs" type="button" role="tab" aria-selected="false" aria-controls="panel-specs" tabindex="-1">Specifications</button>
+    </div>
+    <section id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" tabindex="0">
+      <p>A lightweight model for everyday use.</p>
+    </section>
+    <section id="panel-specs" role="tabpanel" aria-labelledby="tab-specs" tabindex="0" hidden>
+      <p>It weighs 1.2 kg.</p>
+    </section>
+  </main>
+  <script>
+    const tabs = [...document.querySelectorAll('[role="tab"]')];
+
+    function activate(nextTab) {
+      for (const tab of tabs) {
+        const selected = tab === nextTab;
+        tab.setAttribute("aria-selected", String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+        document.getElementById(tab.getAttribute("aria-controls")).hidden = !selected;
+      }
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => activate(tab));
+      tab.addEventListener("keydown", (event) => {
+        if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        let next = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : index + (event.key === "ArrowRight" ? 1 : -1);
+        next = (next + tabs.length) % tabs.length;
+        activate(tabs[next]);
+        tabs[next].focus();
+      });
+    });
+  </script>
+</body>
+</html>

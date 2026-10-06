@@ -1,0 +1,30 @@
+name: Pattern request or improvement
+description: A component that AI agents keep building wrong, or a fix to an existing pattern.
+labels: ["pattern"]
+body:
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      placeholder: combobox, toast, data table, date picker, …
+    validations:
+      required: true
+  - type: textarea
+    id: mistake
+    attributes:
+      label: What agents get wrong today
+      description: Typical generated code and why people or AI agents cannot operate it.
+    validations:
+      required: true
+  - type: textarea
+    id: contract
+    attributes:
+      label: Expected DOM and accessibility-tree state
+      description: Roles, names, aria-* or native state before and after the main action; keyboard behavior.
+    validations:
+      required: true
+  - type: input
+    id: reference
+    attributes:
+      label: Reference
+      placeholder: WAI-ARIA APG or HTML spec link

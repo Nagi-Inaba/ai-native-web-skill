@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Delivery preferences</title>
+  <style>body{font:1rem/1.5 system-ui;margin:1.5rem;max-width:42rem}fieldset{margin:1rem 0}label{display:block;margin:.5rem 0}button,input,select{font:inherit}button{min-height:2rem}:focus-visible{outline:3px solid #005fcc;outline-offset:3px}img{max-width:100%;height:auto}table{border-collapse:collapse}th,td{padding:.5rem;border:1px solid #666;text-align:left}</style>
+</head>
+<body>
+  <main>
+    <h1>Delivery preferences</h1>
+    <form id="preferences">
+      <fieldset>
+        <legend>Delivery speed</legend>
+        <label><input type="radio" name="delivery" value="Standard" checked> Standard</label>
+        <label><input type="radio" name="delivery" value="Express"> Express</label>
+      </fieldset>
+      <label><input id="updates" type="checkbox" name="updates" value="yes"> Email updates</label>
+      <label for="email">Email address (required with updates)</label>
+      <input id="email" type="email" name="email" autocomplete="email" disabled>
+      <label for="region">Region</label>
+      <select id="region" name="region"><option>Europe</option><option>Asia</option></select>
+      <p><button type="submit">Save preferences</button></p>
+      <p id="save-status" role="status"></p>
+    </form>
+  </main>
+  <script>
+    const form = document.querySelector("#preferences");
+    const updates = document.querySelector("#updates");
+    const email = document.querySelector("#email");
+    updates.addEventListener("change", () => {
+      email.disabled = !updates.checked;
+      email.required = updates.checked;
+    });
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const values = new FormData(form);
+      const result = values.has("updates") ? "with email updates" : "without email updates";
+      document.querySelector("#save-status").textContent = `Saved ${values.get("delivery")} delivery in ${values.get("region")} ${result}.`;
+    });
+  </script>
+</body>
+</html>

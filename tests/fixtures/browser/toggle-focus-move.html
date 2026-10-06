@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Focus-moving disclosure</title></head>
+<body>
+  <button id="disclosure" type="button" aria-expanded="false" aria-controls="panel">Details</button>
+  <div id="panel" hidden><button id="inside" type="button">Inside panel</button></div>
+  <script>
+    const disclosure = document.getElementById("disclosure");
+    const panel = document.getElementById("panel");
+    disclosure.addEventListener("click", () => {
+      const open = disclosure.getAttribute("aria-expanded") === "true";
+      disclosure.setAttribute("aria-expanded", String(!open));
+      panel.hidden = open;
+      if (!open) document.getElementById("inside").focus();
+    });
+  </script>
+</body>
+</html>

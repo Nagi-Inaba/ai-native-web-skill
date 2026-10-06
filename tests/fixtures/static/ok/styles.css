@@ -1,0 +1,4 @@
+a:focus-visible { outline: 0; box-shadow: 0 0 0 3px #1a4fd6; }
+.spinner { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }

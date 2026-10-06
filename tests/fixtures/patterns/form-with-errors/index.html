@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register notification address</title>
+</head>
+<body>
+  <main>
+    <h1>Register notification address</h1>
+    <form id="notification-form" novalidate>
+      <label for="email">Email address (required)</label>
+      <p id="email-help">We will send order notifications to this address.</p>
+      <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-help email-error">
+      <p id="email-error" role="alert" hidden></p>
+      <button id="submit-button" type="submit">Register</button>
+      <p id="form-status" role="status" hidden></p>
+    </form>
+  </main>
+  <script>
+    const form = document.querySelector("#notification-form");
+    const email = document.querySelector("#email");
+    const error = document.querySelector("#email-error");
+    const status = document.querySelector("#form-status");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!email.validity.valid) {
+        email.setAttribute("aria-invalid", "true");
+        error.textContent = email.validity.valueMissing ? "Enter your email address." : "Check the email address format.";
+        error.hidden = false;
+        status.hidden = true;
+        email.focus();
+        return;
+      }
+      email.removeAttribute("aria-invalid");
+      error.hidden = true;
+      status.textContent = "Notification address registered.";
+      status.hidden = false;
+    });
+  </script>
+</body>
+</html>

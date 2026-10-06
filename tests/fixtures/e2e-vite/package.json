@@ -1,0 +1,16 @@
+{
+  "name": "e2e-vite",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --strictPort --port 5199"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "6.1.1",
+    "vite": "8.3.1"
+  }
+}

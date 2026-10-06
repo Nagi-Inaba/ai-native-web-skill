@@ -1,0 +1,47 @@
+name: Missed problem or false finding
+description: The static or check command reported something wrong, or missed a real problem.
+labels: ["finding"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      options:
+        - Missed problem (should have been reported)
+        - False finding (reported but correct code)
+        - Wrong certainty or recipe
+    validations:
+      required: true
+  - type: textarea
+    id: code
+    attributes:
+      label: Minimal code
+      description: The smallest HTML or React sample that reproduces it. Remove private data.
+      render: tsx
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Command
+      placeholder: node scripts/cli.mjs check --dev . --path /signup --toggle "#menu"
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What was reported
+      description: The finding (rule id, certainty, message) or the accessibility-tree outline.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected and why
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: skill version, OS, Node, Chrome, framework (Next.js 16 / Vite 8), UI library

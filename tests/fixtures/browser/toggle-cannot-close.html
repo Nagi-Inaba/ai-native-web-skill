@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>One-way disclosure</title></head>
+<body>
+  <button id="disclosure" type="button" aria-expanded="false" aria-controls="panel">Details</button>
+  <div id="panel" hidden>Panel content</div>
+  <script>
+    const disclosure = document.getElementById("disclosure");
+    const panel = document.getElementById("panel");
+    disclosure.addEventListener("click", () => {
+      if (disclosure.getAttribute("aria-expanded") === "false") {
+        disclosure.setAttribute("aria-expanded", "true");
+        panel.hidden = false;
+      }
+    });
+  </script>
+</body>
+</html>

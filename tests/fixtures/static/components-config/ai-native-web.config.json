@@ -1,0 +1,5 @@
+{
+  "components": { "Button": "button", "Input": "input", "Photo": "img" },
+  "polymorphicPropName": "as",
+  "ignore": []
+}

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Opened state defects</title>
+<style>body { color: #111; background: white; } :focus-visible { outline: 3px solid blue; }</style></head>
+<body><main><h1>Opened state defects</h1>
+<button id="disclosure" type="button" aria-controls="panel" aria-expanded="false">Details</button>
+<section id="panel" hidden><button id="unnamed" type="button"></button><input type="text"></section>
+<p role="status">0 activations</p>
+<button id="second" type="button" aria-controls="second-panel" aria-expanded="false">More details</button>
+<section id="second-panel" hidden><p>Second content</p></section>
+</main><script>
+let activations = 0;
+for (const id of ['disclosure', 'second']) {
+  const trigger = document.getElementById(id);
+  const panel = document.getElementById(trigger.getAttribute('aria-controls'));
+  trigger.addEventListener('click', () => {
+    panel.hidden = !panel.hidden;
+    trigger.setAttribute('aria-expanded', String(!panel.hidden));
+    if (id === 'disclosure') document.querySelector('[role=status]').textContent = `${++activations} activations`;
+  });
+}
+</script></body></html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>bad</title>
+<style>
+  .plain:focus { outline: none; }
+  .wide { width: 600px; }
+  .spin { display: inline-block; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<main>
+  <h1>悪い例</h1>
+  <button id="icon-btn" type="button"><svg width="16" height="16" aria-hidden="true"></svg></button>
+  <button id="plain-btn" type="button" class="plain">保存</button>
+  <button id="stuck" type="button" aria-expanded="false" aria-controls="stuck-panel">詳細</button>
+  <div id="stuck-panel" hidden>本文</div>
+  <img src="/missing.png">
+  <div class="wide">幅固定</div>
+  <p class="spin">回転</p>
+</main>
+<script>
+  document.getElementById("stuck").addEventListener("click", () => {
+    document.getElementById("stuck-panel").hidden = false;
+  });
+</script>
+</body>
+</html>

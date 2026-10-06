@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI-native Web"
+  short_description: "人とAIが理解・操作できるWebを、アクセシビリティ基準で作る・直す"
+  default_prompt: "Use $ai-native-web to build or improve the named web UI so its structure, names, states and operations are exposed in the accessibility tree. Read the relevant recipes, run the static check, fix confirmed findings, then verify with the local dev-server check when the screen has interactive UI. Report file:line, recipe, change, re-check result and remaining TODO(a11y) items. Do not claim WCAG or JIS conformance."

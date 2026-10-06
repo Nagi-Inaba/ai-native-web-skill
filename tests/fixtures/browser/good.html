@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>good</title>
+<style>
+  body { font-family: sans-serif; color: #111; background: #fff; }
+  button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #1a4fd6; outline-offset: 2px; }
+  .spin { display: inline-block; animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
+</style>
+</head>
+<body>
+<header><nav aria-label="メイン"><a href="#content">本文へ</a></nav></header>
+<main id="content">
+  <h1>良い例</h1>
+  <button id="menu" type="button" aria-expanded="false" aria-controls="menu-panel">メニュー</button>
+  <ul id="menu-panel" hidden><li><a href="#a">項目A</a></li></ul>
+  <p><label for="q">検索</label> <input id="q" type="search"></p>
+  <p class="spin">読み込み中</p>
+</main>
+<script>
+  const menu = document.getElementById("menu");
+  const panel = document.getElementById("menu-panel");
+  menu.addEventListener("click", () => {
+    const open = menu.getAttribute("aria-expanded") === "true";
+    menu.setAttribute("aria-expanded", String(!open));
+    panel.hidden = open;
+  });
+</script>
+</body>
+</html>

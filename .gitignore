@@ -1,0 +1,8 @@
+# Local planning documents stay off the remote.
+/docs/superpowers/
+# Local reference material is not part of published packages.
+**/references/source/
+**/references/licenses/
+node_modules/
+tests/fixtures/e2e-*/package-lock.json
+tests/fixtures/e2e-*/.next/

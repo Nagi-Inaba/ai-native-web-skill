@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Class-only toggle</title>
+<style>
+body { color: #111; background: white; }
+button:focus-visible { outline: 3px solid blue; }
+#panel { opacity: 0; }
+#panel.is-open { opacity: 1; }
+</style></head>
+<body><main><h1>Class-only toggle</h1>
+<button id="disclosure" type="button" aria-controls="panel">Details</button>
+<section id="panel" aria-label="Details panel"><p>Panel content</p></section>
+</main><script>
+document.querySelector('#disclosure').addEventListener('click', () => document.querySelector('#panel').classList.toggle('is-open'));
+</script></body></html>

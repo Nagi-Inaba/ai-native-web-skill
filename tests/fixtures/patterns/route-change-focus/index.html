@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home | Example Store</title>
+</head>
+<body>
+  <header>
+    <nav aria-label="Main">
+      <a href="/" aria-current="page">Home</a>
+      <a href="/products">Products</a>
+    </nav>
+  </header>
+  <main id="main">
+    <h1 tabindex="-1">Home</h1>
+    <p>Explore our featured products.</p>
+  </main>
+  <script>
+    const routes = {
+      "/": { title: "Home | Example Store", heading: "Home", body: "Explore our featured products." },
+      "/products": { title: "Product list | Example Store", heading: "Product list", body: "Showing all products." }
+    };
+    const heading = document.querySelector("h1");
+    const description = document.querySelector("main p");
+
+    function render(path, moveFocus) {
+      const route = routes[path] || routes["/"];
+      document.title = route.title;
+      heading.textContent = route.heading;
+      description.textContent = route.body;
+      for (const link of document.querySelectorAll("nav a")) {
+        if (link.getAttribute("href") === path) link.setAttribute("aria-current", "page");
+        else link.removeAttribute("aria-current");
+      }
+      if (moveFocus) heading.focus();
+    }
+
+    document.querySelector("nav").addEventListener("click", (event) => {
+      const link = event.target.closest("a");
+      if (!link) return;
+      event.preventDefault();
+      const path = link.getAttribute("href");
+      history.pushState({}, "", path);
+      render(path, true);
+    });
+    window.addEventListener("popstate", () => render(location.pathname, true));
+  </script>
+</body>
+</html>

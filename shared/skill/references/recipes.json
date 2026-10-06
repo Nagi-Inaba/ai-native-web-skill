@@ -1,0 +1,142 @@
+{
+  "schema_version": "1.0.0",
+  "recipes": [
+    {
+      "id": "discoverable-structure",
+      "title": "Where information lives is clear from the structure",
+      "wcag": ["1.3.1", "2.4.1", "2.4.2", "2.4.6", "3.1.1"],
+      "impact": "Without headings, landmarks, a page language and a title, screen reader users and AI agents have to guess where information is on the page.",
+      "build": [
+        "Always set <html lang> (app/layout.tsx in Next.js, index.html in Vite).",
+        "Give every page a unique <title> (metadata.title in Next.js).",
+        "Mark page regions with header, nav, main and footer, with exactly one main.",
+        "Step heading levels down from h1 in order and never use a heading only for its size.",
+        "When there is more than one nav, give each a distinguishing name with aria-label."
+      ],
+      "avoid": ["Building regions out of plain divs", "Using a heading tag to make text larger", "Skipping heading levels"],
+      "verify": ["Read the heading and landmark hierarchy in the ariaSnapshot", "axe landmark-* / heading-order / region / document-title / html-has-lang"],
+      "patterns": ["modal-dialog", "tabs", "repeated-items", "route-change-focus", "async-status", "data-table-and-images"]
+    },
+    {
+      "id": "action-semantics",
+      "title": "Things you can press are exposed as things you can press",
+      "wcag": ["2.1.1", "4.1.2"],
+      "impact": "A clickable div has no role and no keyboard behavior, so assistive technology and AI agents do not see it as something to operate.",
+      "build": [
+        "Use <button type=\"button\"> for actions and <a href> for navigation.",
+        "Even for custom UI, start from a native element instead of only adding a role.",
+        "Use only the roles, attributes and values the ARIA specification allows."
+      ],
+      "avoid": ["Adding only onClick to a div or span", "Using href=\"#\" links as buttons", "Giving a button a role that contradicts its native semantics, such as role=\"link\""],
+      "verify": ["The Tab walk reaches each control and its role is not generic or none", "jsx-a11y no-static-element-interactions / anchor-is-valid / aria-*"],
+      "patterns": ["disclosure-menu", "modal-dialog", "tabs", "form-with-errors", "repeated-items", "route-change-focus", "async-status", "native-form-controls"]
+    },
+    {
+      "id": "control-name-and-purpose",
+      "title": "Every control has a name that says what it does",
+      "wcag": ["1.3.1", "2.4.4", "2.5.3", "3.3.2", "4.1.2"],
+      "impact": "Icon buttons and inputs without names come through only as 'button' or 'edit', so nobody can tell what will happen.",
+      "build": [
+        "Give inputs a visible <label for>.",
+        "Name icon-only buttons with visually hidden text or aria-label, and mark the SVG aria-hidden=\"true\".",
+        "Start the accessible name with the visible label text.",
+        "Give every iframe a title that describes its content."
+      ],
+      "avoid": ["Using a placeholder instead of a label", "Link text that is only 'here' or 'more'", "An aria-label that differs from the visible label"],
+      "verify": ["Every element in the Tab walk has a non-empty computed name", "axe label / button-name / link-name"],
+      "patterns": ["disclosure-menu", "modal-dialog", "tabs", "form-with-errors", "repeated-items", "async-status", "native-form-controls"]
+    },
+    {
+      "id": "form-guidance-and-recovery",
+      "title": "Input requirements and the way out of errors are clear",
+      "wcag": ["1.3.5", "3.3.1", "3.3.2", "3.3.3"],
+      "impact": "When required fields, formats and errors are shown only visually, people cannot finish the form and AI agents cannot read the input rules.",
+      "build": [
+        "Mark required fields with both the required attribute and a visible indicator.",
+        "Associate examples and format hints with the field through aria-describedby.",
+        "Show errors with aria-invalid and an associated error message; on submit, move focus to the first error.",
+        "Add autocomplete to fields for personal data.",
+        "Group related radio buttons and checkboxes with fieldset and legend."
+      ],
+      "avoid": ["Showing an error only with a red border", "Sending focus back to the top of the page when errors appear"],
+      "verify": ["jsx-a11y autocomplete-valid", "axe autocomplete-valid / form-field-multiple-labels"],
+      "patterns": ["form-with-errors", "async-status", "native-form-controls"]
+    },
+    {
+      "id": "state-focus-sync",
+      "title": "State and focus match what is on screen",
+      "wcag": ["2.4.3", "4.1.2", "4.1.3"],
+      "impact": "When a disclosure's visuals and aria-expanded disagree, assistive technology and AI agents misread whether it is open.",
+      "build": [
+        "Update aria-expanded on the trigger together with the open state, and point to the panel with aria-controls.",
+        "Hide closed panels from assistive technology too, for example with hidden.",
+        "When a modal opens, move focus into it, close it with Escape, and return focus to the trigger when it closes.",
+        "Announce results such as 'Saved' with role=\"status\" without stealing focus.",
+        "Never use a positive tabindex."
+      ],
+      "avoid": ["Toggling only the visuals while aria-expanded stays fixed", "Leaving a closed menu in the DOM, only made transparent", "Moving focus with autoFocus without context"],
+      "verify": ["The toggle check sees expanded change and agree with panel visibility", "jsx-a11y no-autofocus / tabindex-no-positive"],
+      "patterns": ["disclosure-menu", "modal-dialog", "tabs", "form-with-errors", "repeated-items", "route-change-focus", "async-status", "native-form-controls"]
+    },
+    {
+      "id": "content-equivalence",
+      "title": "Images and graphics carry their meaning in text",
+      "wcag": ["1.1.1", "1.2.2", "1.3.1"],
+      "impact": "An image without alt, or with only 'image' or a file name, tells people who cannot see it and AI agents nothing.",
+      "build": [
+        "Give informative images an alt that describes their content (next/image too).",
+        "Give decorative images alt=\"\".",
+        "Add a text summary or a data table next to charts.",
+        "Associate data table headers with th and scope.",
+        "Add captions to videos."
+      ],
+      "avoid": ["Putting a file name, 'image' or 'photo' in alt", "Making an image and the text in the same link say the same thing twice"],
+      "verify": ["Static alt-text / meaningful-alt / require-img-alt", "axe image-alt"],
+      "patterns": ["repeated-items", "data-table-and-images"]
+    },
+    {
+      "id": "visual-perception",
+      "title": "Visual cues are not lost",
+      "wcag": ["1.4.3", "1.4.4", "1.4.10", "1.4.11", "2.2.2", "2.3.3", "2.4.7", "2.5.8"],
+      "impact": "Removed focus indicators, low contrast, horizontal scrolling on narrow screens and motion that cannot be stopped get in the way of people with low vision and keyboard users.",
+      "build": [
+        "Provide a visible focus indicator on :focus-visible with outline or box-shadow.",
+        "Keep text contrast at 4.5:1 or more (3:1 for large text).",
+        "Lay out pages so a 320px-wide viewport has no horizontal scrolling, and size text in rem.",
+        "Give animations a @media (prefers-reduced-motion: reduce) branch.",
+        "Do not disable zoom in the viewport meta tag.",
+        "Make pressable targets at least 24x24px."
+      ],
+      "avoid": ["Writing outline: none on its own", "user-scalable=no", "Infinite animations with no way to stop them"],
+      "verify": ["Focus indicator check during the Tab walk", "Reflow check at 320px", "Number of infinite animations under reduced motion", "axe color-contrast / target-size"],
+      "patterns": ["disclosure-menu", "modal-dialog", "tabs", "form-with-errors", "repeated-items", "route-change-focus", "async-status"]
+    },
+    {
+      "id": "dom-state-legibility",
+      "title": "UI state is readable from the DOM and the accessibility tree",
+      "wcag": ["1.3.1", "4.1.2", "4.1.3"],
+      "impact": "AI agents understand and operate a page by reading DOM attributes, visible text, current values and the accessibility tree. When state lives only in CSS classes or visuals, neither AI agents nor assistive technology users can tell whether something is open, selected, finished or how many results there are, and they operate it wrongly.",
+      "build": [
+        "Express open, selected, pressed, current, disabled, invalid and busy with native state (checked, selected, disabled, open, value) or aria-expanded / aria-selected / aria-pressed / aria-current / aria-invalid / aria-busy, updated in the same place that changes the visuals.",
+        "Hide UI that is not in use from the DOM as well, with hidden, inert or a closed <dialog>; never leave it only transparent or off-screen. Do not keep two copies of the same navigation in the DOM for mobile and desktop.",
+        "Show results as visible text ('3 results found', 'Saved', 'Enter a valid email address'). Put completion and failure messages in role=\"status\" / role=\"alert\" and do not remove them immediately.",
+        "Write input rules as attributes (type, required, min, max, pattern, autocomplete, name).",
+        "For repeated actions, include the target in the name ('Edit: Product A') or place them inside a named row or group.",
+        "Navigate with <a href> and submit with <form> and type=\"submit\". Reflect shareable state such as filters or the selected tab in the URL query too."
+      ],
+      "avoid": [
+        "Writing a state attribute such as aria-expanded=\"false\" as a fixed literal while a click changes only the visuals",
+        "Expressing state only with classes such as is-open or active",
+        "Keeping a closed menu in the DOM with opacity: 0 or off-screen positioning",
+        "Showing result counts or completion only with icons, color or animation",
+        "A div or button that navigates in onClick"
+      ],
+      "verify": [
+        "No JSX state attribute is a fixed literal on an element with an interaction handler (static)",
+        "No place where the visuals change on an action but the DOM state attributes and the accessibility tree do not (check)",
+        "The ariaSnapshot shows open/closed, selected, current values and result text"
+      ],
+      "patterns": ["disclosure-menu", "modal-dialog", "tabs", "form-with-errors", "repeated-items", "route-change-focus", "async-status", "native-form-controls"]
+    }
+  ]
+}
