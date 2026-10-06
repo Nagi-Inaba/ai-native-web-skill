@@ -38,6 +38,7 @@ All notable changes are recorded here. Versions follow [Semantic Versioning](htt
 ### Fixed
 
 - The Chrome availability command in CI uses a YAML block scalar so colons in its console messages do not break workflow parsing. A YAML parsing regression test runs before distribution checks.
+- CLI entry points are tracked as executable files so npm workspace bin linking and distribution sync preserve the same mode on Unix.
 
 - Distribution packages use a public-file allowlist, keeping local references and internal notes out of npm packages while preserving local source material. Folder/zip artifacts are built from a clean Git checkout.
 - Installed-skill dependency errors recommend `npm install` in the skill directory. Pattern developer tests live in CONTRIBUTING; installed guidance uses the project CLI. Network guidance documents the streaming-request redirect exception.
