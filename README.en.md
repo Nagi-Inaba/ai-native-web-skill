@@ -10,7 +10,7 @@ AI agents understand and operate a page by reading DOM attributes, visible text,
 - **A clean accessibility tree**: regions, headings, names and roles come through as they are.
 - **Readable state**: open/closed, selected, errors, busy and result counts are exposed as DOM attributes and visible text, not only as CSS classes or visuals.
 
-> Status: v0.1.0 (in development). The skill does not determine or claim WCAG / JIS conformance.
+> Status: v0.1.0 (in development).
 
 ## What it does
 
@@ -24,7 +24,7 @@ The recipes live in `shared/skill/references/recipes.json`. The skill itself is 
 ## Requirements
 
 - Node.js 20.19 or later (developed and tested on 22.19)
-- Google Chrome for `check` (no Playwright browser download; set `ANW_BROWSER_CHANNEL` to use another channel)
+- Google Chrome for `check` (uses the Chrome installed on the system; set `ANW_BROWSER_CHANNEL` to use another channel)
 - Windows / macOS / Linux (tested on Windows 11)
 
 ## Installation

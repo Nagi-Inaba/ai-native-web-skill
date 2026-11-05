@@ -31,7 +31,7 @@ try { node --test tests/e2e.test.mjs } finally { $env:ANW_E2E = $previousAnwE2e 
 - **Tests first.** A rule or probe change needs a failing test that passes after the change, plus a look-alike case that must not be reported (a negative control).
 - **Patterns are tested code.** The HTML and React blocks in `shared/skill/references/patterns/*.md` must stay identical to `tests/fixtures/patterns/<id>/` and pass `static` with no confirmed findings. Browser tests exercise the HTML fixtures and compare their documented state; React examples are not exercised in a browser by this suite.
 - **Prefer native elements** (`button`, `a href`, `form`, `label`, `dialog`, `details`) and keep state in DOM attributes and visible text.
-- **No conformance claims.** The skill does not certify WCAG / JIS conformance.
+- **Scope wording.** Describe the skill only in terms of what its checks actually verify: DOM attributes, visible text, current values and the accessibility tree.
 - **Keep the safety boundary.** `check` opens loopback URLs only; do not add features that operate external sites, submit to external services, or download browsers.
 
 ## Pattern tests and distribution artifacts

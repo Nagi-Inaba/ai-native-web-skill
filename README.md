@@ -10,7 +10,7 @@ AIエージェントは、DOMの属性・見えている文字・現在値と、
 - **素直なアクセシビリティツリー**：領域・見出し・名前・役割がそのまま出る。
 - **読める状態**：開閉・選択・エラー・処理中・件数を、CSSのクラスや見た目ではなく、DOMの属性と見える文字で出す。
 
-> 状態: v0.1.0（開発中）。WCAG／JIS の適合判定や適合宣言はしません。
+> 状態: v0.1.0（開発中）。
 
 ## できること
 
@@ -24,7 +24,7 @@ recipe は `shared/skill/references/recipes.json` にあります。スキル本
 ## 必要なもの
 
 - Node.js 20.19 以上（開発・検証は 22.19 で実施）
-- Google Chrome（`check` で使用。Playwright のブラウザはダウンロードしません。別のチャンネルは `ANW_BROWSER_CHANNEL` で指定）
+- Google Chrome（`check` で使用。システムにインストールされたChromeを使います。別のチャンネルは `ANW_BROWSER_CHANNEL` で指定）
 - Windows／macOS／Linux（検証済みは Windows 11）
 
 ## インストール
