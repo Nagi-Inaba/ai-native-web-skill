@@ -29,7 +29,7 @@ The recipes live in `shared/skill/references/recipes.json`. The skill itself is 
 
 ## Installation
 
-From a clean checkout of this repository, use the distribution copies in `claude/skills/ai-native-web/` or `codex/skills/ai-native-web/`. The skill source is `shared/skill/`. The examples below assume a new installation. Use a clean clone or Git archive for folder/zip distribution.
+Clone this repository and copy the folder for your agent — `claude/skills/ai-native-web/` for Claude Code or `codex/skills/ai-native-web/` for Codex — into your skills directory. The examples below assume a new installation.
 
 ```text
 # Claude Code (user-wide)

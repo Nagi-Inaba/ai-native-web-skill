@@ -29,7 +29,7 @@ recipe は `shared/skill/references/recipes.json` にあります。スキル本
 
 ## インストール
 
-このリポジトリのクリーンな取得元から、`claude/skills/ai-native-web/` または `codex/skills/ai-native-web/` の配布用コピーを使います。スキル本体は `shared/skill/` です。以下は新規導入の例です。フォルダ・zip配布はクリーンなcloneまたはGit archiveから作成します。
+このリポジトリをcloneして、使うエージェントに合わせて `claude/skills/ai-native-web/`（Claude Code）または `codex/skills/ai-native-web/`（Codex）をスキル置き場へコピーします。以下は新規導入の例です。
 
 ```text
 # Claude Code（ユーザー共通）
