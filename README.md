@@ -4,11 +4,13 @@
 
 AIエージェントが操作しやすいWebを、AIコーディングエージェントに最初から書かせるための Claude Code／Codex 用スキルです。
 
-AIエージェントは、DOMの属性・見えている文字・現在値と、アクセシビリティツリーを読んで画面を理解し、操作します。支援技術を使う人も同じ情報を使います。このスキルは、HTML／CSS／React（Next.js・Vite）のコードを書く時点で、次の3つを正しく作らせます。
+AIエージェントは、DOMの属性・見えている文字・現在値と、アクセシビリティツリーを読んで画面を理解し、操作します。支援技術を使う人も同じ情報を使います。ところが、AIコーディングエージェントに任せると、見た目だけボタンらしい `div` や、状態をCSSクラスだけで持つUIが混ざりがちです。そうなると、操作する側のエージェントや支援技術からは押す対象に見えず、状態も読めません。このスキルは、HTML／CSS／React（Next.js・Vite）のコードを書く時点で、次の3つを正しく作らせます。
 
 - **正しい要素**：押すものは `<button>`、移動は `<a href>`、送信は `<form>`。Tabで移動でき、ボタンはEnter／Space、リンクはEnterで実行できる。
 - **素直なアクセシビリティツリー**：領域・見出し・名前・役割がそのまま出る。
 - **読める状態**：開閉・選択・エラー・処理中・件数を、CSSのクラスや見た目ではなく、DOMの属性と見える文字で出す。
+
+部品パターンは、開閉メニュー、モーダル、タブ、フォーム（エラー表示・標準部品）、表と画像、非同期の状態表示、画面遷移時のフォーカスなどを用意しています。
 
 > 状態: v0.1.0（開発中）。
 
@@ -19,7 +21,17 @@ AIエージェントは、DOMの属性・見えている文字・現在値と、
 - **static**：HTML／JSX／TSX／CSS の静的解析（eslint-plugin-jsx-a11y、@html-eslint、stylelint と独自ルール）。固定値のままの `aria-expanded` など、状態がDOMに出ない書き方も見つける。
 - **check**：ローカル開発サーバを起動し、アクセシビリティツリー、Tabでの到達と名前、開閉UIの状態がDOMとツリーに出ているか、axe-core、320px 幅、`prefers-reduced-motion` を確かめる。
 
-recipe は `shared/skill/references/recipes.json` にあります。スキル本体は英語で書かれていて、エージェントは利用者が使う言語（日本語で頼めば日本語）で応答します。
+recipe は [shared/skill/references/recipes.json](shared/skill/references/recipes.json) にあります。スキル本体は英語で書かれていて、エージェントは利用者が使う言語（日本語で頼めば日本語）で応答します。
+
+例（開閉メニュー）:
+
+```jsx
+// Before: 見た目だけのボタン。フォーカスできず、役割も開閉状態もDOMに出ない
+<div className="btn open" onClick={toggle}>Menu</div>
+
+// After: このスキルの形。キーボードで操作でき、状態が属性とツリーに出る
+<button type="button" aria-expanded={isOpen} aria-controls="nav-menu" onClick={toggle}>Menu</button>
+```
 
 ## 必要なもの
 
@@ -32,6 +44,9 @@ recipe は `shared/skill/references/recipes.json` にあります。スキル本
 このリポジトリをcloneして、使うエージェントに合わせて `claude/skills/ai-native-web/`（Claude Code）または `codex/skills/ai-native-web/`（Codex）をスキル置き場へコピーします。以下は新規導入の例です。
 
 ```text
+git clone https://github.com/Nagi-Inaba/ai-native-web-skill.git
+cd ai-native-web-skill
+
 # Claude Code（ユーザー共通）
 mkdir -p ~/.claude/skills
 cp -r claude/skills/ai-native-web ~/.claude/skills/
@@ -40,8 +55,8 @@ cp -r claude/skills/ai-native-web ~/.claude/skills/
 mkdir -p ~/.agents/skills
 cp -r codex/skills/ai-native-web ~/.agents/skills/
 
-# どちらも、コピー先で依存をインストール
-cd <コピー先>/ai-native-web && npm install
+# 依存のインストールと環境確認（Claude Code の場合。Codex は ~/.agents/skills/ai-native-web）
+cd ~/.claude/skills/ai-native-web && npm install && node scripts/cli.mjs doctor
 ```
 
 プロジェクト単位で使う場合は、Claude Code はプロジェクトの `.claude/skills/`、Codex はリポジトリの `.agents/skills/` に置いてください。Windows の PowerShell で新規導入する場合:
@@ -58,7 +73,9 @@ node scripts/cli.mjs doctor
 
 ## 使い方
 
-エージェントに「ハンバーガーメニューを作って」「このモーダルをキーボードとAIで操作できるように直して」「フォームのエラー表示を作って」のように頼むと、スキルが書き方と確認の手順を案内します。CLI は導入したスキルのディレクトリ（`SKILL.md` のある場所）で実行し、対象プロジェクトのパスを引数に渡します。初回は `node scripts/cli.mjs doctor` で環境を確認します。コマンド:
+エージェントに「ハンバーガーメニューを作って」「このモーダルをキーボードとAIで操作できるように直して」「フォームのエラー表示を作って」のように頼むと、スキルが書き方と確認の手順を案内します。**build と improve はエージェントへの頼み方（モード）**で、CLIのサブコマンドではありません。検証に使うCLIの実コマンドは **static／check** と、環境確認の **doctor** です。
+
+CLI は導入したスキルのディレクトリ（[SKILL.md](shared/skill/SKILL.md) のある場所）で実行し、対象プロジェクトのパスを引数に渡します。初回は `node scripts/cli.mjs doctor` で環境を確認します。コマンド:
 
 ```text
 node scripts/cli.mjs static <project-dir> [--json]
@@ -66,7 +83,14 @@ node scripts/cli.mjs check --dev <project-dir> --toggle "#menu-button"
 node scripts/cli.mjs check --url http://localhost:3000/
 ```
 
-終了コードは 0＝指摘なし、1＝指摘あり、2＝使い方または実行時エラーです。詳しくは `shared/skill/references/workflow.md` を参照してください。
+導入先のパスから直接実行もできます（対象プロジェクトが `~/projects/my-app` の場合）:
+
+```text
+node ~/.claude/skills/ai-native-web/scripts/cli.mjs static ~/projects/my-app
+node ~/.claude/skills/ai-native-web/scripts/cli.mjs check --dev ~/projects/my-app --toggle "#menu-button"
+```
+
+終了コードは 0＝指摘なし、1＝指摘あり、2＝使い方または実行時エラーです。詳しくは [shared/skill/references/workflow.md](shared/skill/references/workflow.md) を参照してください。
 
 ## 安全上の注意
 
@@ -88,9 +112,9 @@ npm test
 npm run sync   # shared/skill を claude/ と codex/ の配布コピーへ反映
 ```
 
-Codex のアプリ画面用の表示名・説明・既定の依頼文は `platform/codex/agents/openai.yaml` にあり、`npm run sync` で Codex 版にだけ `agents/openai.yaml` として同梱されます。
+Codex のアプリ画面用の表示名・説明・既定の依頼文は [platform/codex/agents/openai.yaml](platform/codex/agents/openai.yaml) にあり、`npm run sync` で Codex 版にだけ `agents/openai.yaml` として同梱されます。
 
-Vite／Next.js の E2E は任意実行です。`tests/fixtures/e2e-*` で `npm install` したあと、POSIX シェルでは `ANW_E2E=1 node --test tests/e2e.test.mjs` を実行します。
+Vite／Next.js の E2E は任意実行です。`tests/fixtures/e2e-*` で `npm install` したあと、POSIX シェルでは `ANW_E2E=1 node --test tests/e2e.test.mjs` を実行します（テスト本体は [tests/e2e.test.mjs](tests/e2e.test.mjs)）。
 
 PowerShell:
 
