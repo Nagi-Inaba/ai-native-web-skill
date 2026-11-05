@@ -6,7 +6,7 @@ A Claude Code / Codex skill that makes AI coding agents build web UI that AI age
 
 AI agents understand and operate a page by reading DOM attributes, visible text, current values and the accessibility tree. People using assistive technology rely on the same information. While writing HTML, CSS and React (Next.js, Vite), this skill makes the agent get three things right:
 
-- **The right elements**: a `<button>` for actions, `<a href>` for navigation, `<form>` for submission — reachable with Tab, operable with Enter/Space.
+- **The right elements**: a `<button>` for actions, `<a href>` for navigation, `<form>` for submission — reachable with Tab; buttons work with Enter/Space and links with Enter.
 - **A clean accessibility tree**: regions, headings, names and roles come through as they are.
 - **Readable state**: open/closed, selected, errors, busy and result counts are exposed as DOM attributes and visible text, not only as CSS classes or visuals.
 

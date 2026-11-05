@@ -61,7 +61,7 @@ All notable changes are recorded here. Versions follow [Semantic Versioning](htt
 
 ### Known issues
 
-- `braces` 3.0.3 remains affected by the high-severity advisory [GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm), through stylelint → micromatch (also through fast-glob). As of 2026-10-06, the npm registry still lists 3.0.3 as latest and the advisory lists no patched version. No untrusted brace-pattern path was identified in the current static CLI: stylelint escapes existing CSS file paths, its glob options are fixed, project `ignore` patterns use the analyzer's literal/star matcher, and `.stylelintignore` uses the separate `ignore` parser. The dependency advisory remains; recheck it when dependencies or input handling change.
+- `braces` 3.0.3 remains affected by the high-severity advisory [GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm), through stylelint → micromatch (also through fast-glob). As of 2026-10-06, the npm registry still lists 3.0.3 as latest and the advisory lists no patched version. No untrusted brace-pattern path was identified in the current static CLI: stylelint escapes existing CSS file paths, its glob options are fixed, project `ignore` patterns use the analyzer's literal/star matcher, and `.stylelintignore` uses the separate `ignore` parser. The dependency advisory remains; recheck it when dependencies or input handling change. **Update (2026-10-23):** the advisory was withdrawn by GitHub as not describing an exploitable vulnerability, so this entry is kept as a historical record and is no longer a current known issue.
 
 ## [0.1.0] - 2026-09-29
 

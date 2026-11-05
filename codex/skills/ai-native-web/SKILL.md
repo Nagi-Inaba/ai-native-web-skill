@@ -7,7 +7,7 @@ description: Use when writing or changing web UI in HTML, CSS, React, Next.js or
 
 AI agents understand and operate a page by reading DOM attributes, visible text, current values and the accessibility tree. People using assistive technology rely on the same information. This skill is an engineering aid for getting that right while you write the code.
 
-- Actions are `<button>`, navigation is `<a href>`, submission is `<form>`. Everything is reachable with Tab and works with Enter/Space.
+- Actions are `<button>`, navigation is `<a href>`, submission is `<form>`. Everything is reachable with Tab; buttons work with Enter/Space and links with Enter.
 - Regions, headings, names and roles come through cleanly in the accessibility tree.
 - State such as open/closed, selected, errors, busy and result counts is readable from the DOM and the tree, not only from CSS classes or visuals.
 
