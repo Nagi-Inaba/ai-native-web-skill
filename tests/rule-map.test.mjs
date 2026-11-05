@@ -26,7 +26,7 @@ test("unknown rules and parse errors need review", () => {
   assert.deepEqual(classify("jsx-a11y/alt-text"), { recipe: "content-equivalence", certainty: "confirmed" });
 });
 
-test("Tailwind rules are enabled with the requested recipe and certainty", () => {
+test("Tailwind rules use the expected recipe and certainty mappings", () => {
   for (const [ruleId, recipe, certainty] of [
     ["anw/jsx-tailwind-focus", "visual-perception", "confirmed"],
     ["anw/jsx-tailwind-order", "discoverable-structure", "needs_browser"],

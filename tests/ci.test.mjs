@@ -60,7 +60,7 @@ test("CI distribution check rejects modified, staged and untracked files", async
   try {
     const probe = run(bash, ["-c", "exit 0"]);
     if (process.platform === "win32" && probe.status !== 0 && /CreateFileMapping|Win32 error 5/u.test(probe.stderr)) {
-      t.skip("The Windows sandbox denies Git Bash shared-memory access");
+      t.skip("Git Bash shared-memory initialization failed on Windows (access denied)");
       return;
     }
     assert.equal(probe.status, 0, probe.stderr);

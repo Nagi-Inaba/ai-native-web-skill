@@ -38,7 +38,7 @@ try { node --test tests/e2e.test.mjs } finally { $env:ANW_E2E = $previousAnwE2e 
 
 From the repository root, run `node --test tests/patterns.test.mjs` for the pattern suite or `npm test` for all tests. Browser tests skip when local Chrome is unavailable.
 
-Build public folder/zip artifacts from a clean clone or `git archive`, never from a working tree containing local-only material. Local reference material stays in the source and local distribution copies. The distribution package's `files` allowlist excludes it from `npm pack`. Run `npm pack --dry-run --json --ignore-scripts` inside each generated skill directory to inspect the package contents; this does not publish the package.
+Build public folder/zip artifacts from a clean clone or `git archive`, never from a working tree containing local-only material. The distribution package's `files` allowlist excludes it from `npm pack`. Run `npm pack --dry-run --json --ignore-scripts` inside each generated skill directory to inspect the package contents; this does not publish the package.
 
 ## Commits and pull requests
 
